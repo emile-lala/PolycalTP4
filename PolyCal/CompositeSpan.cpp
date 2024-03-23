@@ -93,7 +93,8 @@ std::ostream& CompositeSpan::printToStream(std::ostream& o) const
 {
 	for (const auto& span : m_subSpans)
 	{
-		indent(o) << *span;
+		indent(o);
+		o << *span;
 	}
 
 	return o;
