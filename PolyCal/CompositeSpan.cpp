@@ -92,13 +92,10 @@ bool CompositeSpan::isRecurrent() const {
 std::ostream& CompositeSpan::printToStream(std::ostream& o) const 
 {
 	static int indent = 0;
-	indent++;
 	for (const auto& span : m_subSpans)
 	{
 		o << std::string(indent, '\t') << *span;
 	}
-
-	indent--;
 
 	return o;
 }
