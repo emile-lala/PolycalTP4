@@ -8,32 +8,30 @@
 #include "RecurentSpan.h"
 
 
-RecurentSpan::RecurentSpan(int nRepeat, const AbstractSpan& baseSpan)
-	// À compléter
+RecurentSpan::RecurentSpan(int nRepeat, const AbstractSpan& baseSpan): m_numRepetitions(nRepeat) 
 {
-	// À compléter: conserver une copie l'objet baseSpan en ajoutant
-	//              la copie dans le conteneur m_repeatedSpan
+	m_repeatedSpan.push_back(baseSpan.clone());
 }
 
-RecurentSpan::RecurentSpan(const RecurentSpan& rhs)
-// À compléter
+RecurentSpan::RecurentSpan(const RecurentSpan& rhs): m_numRepetitions(rhs.m_numRepetitions) 
 {
-	// À compléter: conserver une copie l'objet contenu dans le conteneur de rhs en ajoutant
-	//              la copie dans le conteneur m_repeatedSpan
+	for (const auto& span : rhs.m_repeatedSpan) 
+	{
+		m_repeatedSpan.push_back(span->clone());
+	}
 }
 
 SpanPtr RecurentSpan::clone() const
 {
-	// À compléter: allouer un nouvel objet identique à this et retourner le nouveau pointeur
-	return nullptr;
+	return std::make_unique<RecurentSpan>(*this);
 }
 
 
 AbstractSpan& RecurentSpan::addSpan(const AbstractSpan& span)
 {
-	// À compléter: insérer une copie de l'objet span dans le conteneur des sub-spans
-	//              retourner une référence à l'objet inséré
-	return *this; // À REMPLACER !!!
+	m_repeatedSpan.push_back(span.clone());
+	
+	return *this;
 }
 
 
@@ -56,7 +54,7 @@ SpanIterator_const RecurentSpan::cend() const {
 
 
 void RecurentSpan::deleteSpan(SpanIterator_const child){
-
+	m_repeatedSpan.erase(child);
 }
 
 
@@ -74,11 +72,7 @@ bool RecurentSpan::isRecurrent() const {
 
 std::ostream& RecurentSpan::printToStream(std::ostream& o) const 
 {
-	// À compléter: 
-	//      - indenter
-	//      - imprimer sur la console l'information de répétition comme "duration = 24 x 60 = 1440 minutes\n"
-	// 	    - imprimer le span contenu dans le conteneur m_repeatedSpan
-	//      - décrémenter l'indentation
+	o << "RecurentSpan: " << m_numRepetitions << " repetitions" << std::endl;
 
 	return o;
 }
@@ -86,23 +80,31 @@ std::ostream& RecurentSpan::printToStream(std::ostream& o) const
 
 int RecurentSpan::getNumRepetitions() const
 {
-	// À compléter
-	return 0;
+	return m_numRepetitions;
 }
 
 void RecurentSpan::setNumRepetitions(int repetitions)
 {
-	// À compléter
+	m_numRepetitions = repetitions;
 }
 
 
 Minutes RecurentSpan::getDuration() const 
 {
-	// À compléter
+	if (m_repeatedSpan.size() > 0)
+	{
+		Minutes total(0);
+		for (const auto& span : m_repeatedSpan)
+		{
+			total += span->getDuration();
+		}
+		return total;
+	}
+
 	return Minutes(0);
 }
 
 void RecurentSpan::setDuration(Minutes duration)
 {
-	// À compléter
+	// Échoue silencieusement
 }
