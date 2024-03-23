@@ -83,8 +83,8 @@ void TimeSpan::setNumRepetitions(int repetitions)
 }
 
 
-std::ostream& TimeSpan::printToStream(std::ostream& o) const {
-
+std::ostream& TimeSpan::printToStream(std::ostream& o) const 
+{
 	indent(o);
 	return  o << "duration = " << m_duration.count() << std::endl;
 }
