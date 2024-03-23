@@ -72,6 +72,8 @@ bool RecurentSpan::isRecurrent() const {
 
 std::ostream& RecurentSpan::printToStream(std::ostream& o) const 
 {	
+	indent(o);
+
 	o << "duration = " << m_numRepetitions << " x " << getDuration().count() << " = " << m_numRepetitions * getDuration().count() << " minutes" << std::endl;
 
 	for (const auto& span : m_repeatedSpan)
