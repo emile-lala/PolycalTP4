@@ -72,14 +72,23 @@ bool RecurentSpan::isRecurrent() const {
 
 std::ostream& RecurentSpan::printToStream(std::ostream& o) const 
 {
-	o << "RecurentSpan: " << m_numRepetitions << " repetitions\n";
-
-	for (const auto& span : m_repeatedSpan)
-	{
-		o << "\t";
-		span->getDuration();
-		o << "\n";
-	}
+	// The output should be formatted as follows:
+	/*duration = 24 x 60 = 1440 minutes
+	duration = 60
+	duration = 5 x 1440 = 7200 minutes
+		duration = 510
+		duration = 4 x 60 = 240 minutes
+			duration = 50
+			duration = 10
+		duration = 15
+		duration = 5 x 60 = 300 minutes
+			duration = 50
+			duration = 10
+		duration = 375
+	duration = 24 x 60 = 1440 minutes
+	duration = 60*/
+	
+	o << "duration = " << m_numRepetitions << " x " << getDuration().count() << " = " << m_numRepetitions * getDuration().count() << " minutes" << std::endl;
 
 	return o;
 }
