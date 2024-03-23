@@ -11,7 +11,6 @@ int AbstractSpan::m_indent = 0;
 
 std::ostream& operator<<(std::ostream& o, const AbstractSpan& Span)
 {
-	// TODO: insert return statement here
 	return Span.printToStream(o);
 }
 

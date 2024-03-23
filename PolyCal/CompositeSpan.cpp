@@ -9,21 +9,21 @@
 
 CompositeSpan::CompositeSpan(const CompositeSpan& rhs)
 {
-	// À compléter: effectuer une copie en profondeur de l'objet rhs en ajoutant
-	//              une copie de chacun des enfants contenus dans rhs
+	for (const auto& span : rhs.m_subSpans)
+	{
+		m_subSpans.push_back(SpanPtr(span->clone()));
+	}
 }
 
 SpanPtr CompositeSpan::clone() const
 {
-	// À compléter: allouer un nouvel objet identique à this et retourner le nouveau pointeur
-	return nullptr;
+	return std::make_unique<CompositeSpan>(*this);
 }
 
 AbstractSpan& CompositeSpan::addSpan(const AbstractSpan& span)
 {
-	// À compléter: insérer une copie de l'objet span dans le conteneur des sub-spans
-	//              retourner une référence à l'objet inséré
-	return *this; // À REMPLACER !!!
+	m_subSpans.push_back(SpanPtr(span.clone()));
+	return *m_subSpans.back();
 }
 
 
@@ -47,20 +47,22 @@ SpanIterator_const CompositeSpan::cend() const
 
 void CompositeSpan::deleteSpan(SpanIterator_const child)
 {
-	// À compléter : retirer du conteneur des sub-spans l'objet pointé par l'itérateur
+	m_subSpans.erase(child);
 }
 
 
 SpanIterator CompositeSpan::end()
 {
-	// À compléter
 	return m_subSpans.end();
 }
 
 Minutes CompositeSpan::getDuration() const 
 {
-	// À compléter: calculer la durée total en sommant la durée de chaque enfant
 	Minutes total(0);
+	for (const auto& span : m_subSpans)
+	{
+		total += span->getDuration();
+	}
 	return total;
 }
 
@@ -89,10 +91,14 @@ bool CompositeSpan::isRecurrent() const {
 
 std::ostream& CompositeSpan::printToStream(std::ostream& o) const 
 {
-	// À compléter: 
-	//      - incrémenter l'indentation
-	//      - itérer sur le enfant et imprimer chacun
-	//      - décrémenter l'indentation
+	static int indent = 0;
+	indent++;
+	for (const auto& span : m_subSpans)
+	{
+		o << std::string(indent, '\t') << *span;
+	}
+
+	indent--;
 
 	return o;
 }
