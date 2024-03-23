@@ -34,10 +34,10 @@ public:
 	virtual bool isRecurrent() const = 0;
 	virtual int getNumRepetitions() const = 0;
 	virtual void setNumRepetitions(int repetitions) = 0;
+	virtual std::ostream& printToStream(std::ostream& o) const = 0;
 
 protected:
 	friend std::ostream& operator<<(std::ostream& o, const AbstractSpan& Span);
-	virtual std::ostream& printToStream(std::ostream& o) const = 0;
 
 	static int m_indent;
 	std::ostream& indent(std::ostream& o) const;
