@@ -72,7 +72,14 @@ bool RecurentSpan::isRecurrent() const {
 
 std::ostream& RecurentSpan::printToStream(std::ostream& o) const 
 {
-	o << "RecurentSpan: " << m_numRepetitions << " repetitions" << std::endl;
+	o << "RecurentSpan: " << m_numRepetitions << " repetitions\n";
+
+	for (const auto& span : m_repeatedSpan)
+	{
+		o << "\t";
+		span->getDuration();
+		o << "\n";
+	}
 
 	return o;
 }

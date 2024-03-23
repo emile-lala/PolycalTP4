@@ -10,12 +10,12 @@
 
 
 Participant::Participant(const User& participant, std::string role)
-	: m_user(participant) // À compléter
+	: m_user(participant), m_role(role)
 {
 }
 
 Participant::Participant(const Participant& rhs)
-	: m_user(rhs.m_user) // À compléter
+	: m_user(rhs.m_user), m_role(rhs.m_role)
 {
 }
 
@@ -26,12 +26,10 @@ const User& Participant::getUser() const
 
 std::string Participant::getRole() const
 {
-	// À compléter
-	return "";
+	return m_role;
 }
 
 void Participant::setRole(std::string role)
 {
-	// À compléter
+	m_role = role;
 }
-
