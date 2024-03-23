@@ -1,0 +1,14 @@
+﻿  AbstractEvent.cpp
+  AbstractSpan.cpp
+  Agenda.cpp
+  CompositeSpan.cpp
+  Meeting.cpp
+  Participant.cpp
+  PCControler.cpp
+  PolyCal-TP4.cpp
+  RecurentSpan.cpp
+  Schedule.cpp
+  TimeSpan.cpp
+  User.cpp
+  Generating Code...
+  PolyCal.vcxproj -> C:\Users\franc\polymtl.ca\LOG2400 - Équipe des enseignants - General\travauxPratiques\H24\TP4\CodeDepart\PolyCalVS\x64\Debug\PolyCal.exe
